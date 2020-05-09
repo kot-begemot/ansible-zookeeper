@@ -1,12 +1,12 @@
 ---
-zookeeper_mirror: "https://www-eu.apache.org/dist/zookeeper"
-zookeeper_version: 3.4.14
+zookeeper_mirror: "https://downloads.apache.org/zookeeper"
+zookeeper_version: 3.6.1
 
 zookeeper_group: zookeeper
 zookeeper_user: zookeeper
 
 zookeeper_root_dir: /usr/share
-zookeeper_install_dir: '{{ zookeeper_root_dir }}/zookeeper-{{ zookeeper_version }}'
+zookeeper_install_dir: '{{ zookeeper_root_dir }}/apache-zookeeper-{{ zookeeper_version }}'
 # The zookeeper_dir is created as a symlik to the actual installation directory.
 # All other configuration and variables use the symlinked directory.
 zookeeper_dir: '{{ zookeeper_root_dir }}/zookeeper'
@@ -16,6 +16,7 @@ zookeeper_log_dir: /var/log/zookeeper
 zookeeper_data_dir: /var/lib/zookeeper
 zookeeper_data_log_dir: /var/lib/zookeeper
 zookeeper_client_port: 2181
+zookeeper_client_port_address: localhost
 
 # Uniquely identifies the ZooKeeper instance when clustering ZooKeeper nodes.
 # This value is placed in the /var/lib/zookeeper/myid file.
