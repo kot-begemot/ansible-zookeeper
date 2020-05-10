@@ -51,3 +51,5 @@ clientPortAddress={{ zookeeper_client_port_address }}
 {% for host in zookeeper_servers %}
 server.{{ host.id }}={{ host.ip }}:{{ zookeeper_leader_port }}:{{ zookeeper_election_port }}
 {% endfor %}
+
+admin.enableServer=false

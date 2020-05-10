@@ -22,7 +22,7 @@
 
 - name: Download Apache ZooKeeper
   get_url:
-    url: "{{ zookeeper_mirror }}/zookeeper-{{ zookeeper_version }}/apache-zookeeper-{{ zookeeper_version }}.tar.gz"
+    url: "{{ zookeeper_mirror }}/zookeeper-{{ zookeeper_version }}/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz"
     dest: /tmp
   when: not dir.stat.exists
   tags:
@@ -30,7 +30,7 @@
 
 - name: Unpack Apache ZooKeeper
   unarchive:
-    src: /tmp/apache-zookeeper-{{ zookeeper_version }}.tar.gz
+    src: /tmp/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz
     dest: '{{ zookeeper_root_dir }}'
     copy: no
     group: '{{ zookeeper_group }}'
@@ -50,6 +50,15 @@
     - zookeeper_dirs
 
 - name: Create directory for snapshot files and myid file
+  file:
+    path: '{{ zookeeper_data_dir }}'
+    state: directory
+    group: '{{ zookeeper_group }}'
+    owner: '{{ zookeeper_user }}'
+  tags:
+    - zookeeper_dirs
+
+- name: Create directory for data logs
   file:
     path: '{{ zookeeper_data_dir }}'
     state: directory
@@ -154,7 +163,7 @@
 # Cleanup install by deleting downloaded ZooKeeper archive
 - name: Delete ZooKeeper tar.gz file
   file:
-    path: /tmp/zookeeper-{{ zookeeper_version }}.tar.gz
+    path: /tmp/apache-zookeeper-{{ zookeeper_version }}-bin.tar.gz
     state: absent
   tags:
     - zookeeper_cleanup
